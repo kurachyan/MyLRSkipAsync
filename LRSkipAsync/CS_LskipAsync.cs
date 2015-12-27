@@ -36,20 +36,20 @@ namespace LRSkipAsync
         #region コンストラクタ
         public CS_LskipAsync()
         {   // コンストラクタ
-            this._wbuf = null;       // 設定情報無し
-            this._empty = true;
+            _wbuf = null;       // 設定情報無し
+            _empty = true;
         }
         #endregion
 
         #region モジュール
-        public async Task Clear()
+        public async Task ClearAsync()
         {   // 作業領域の初期化
-            this._wbuf = null;       // 設定情報無し
-            this._empty = true;
+            _wbuf = null;       // 設定情報無し
+            _empty = true;
         }
 
         // '14.01.07 : 評価対象に"￥ｒ"追加
-        public async Task Exec()
+        public async Task ExecAsync()
         {   // 左側余白情報を削除
             if (!_empty)
             {   // バッファーに実装有り
@@ -57,9 +57,38 @@ namespace LRSkipAsync
 
                 if (_wbuf.Length == 0 || _wbuf == null)
                 {   // バッファー情報無し
-                    await this.Clear();           // 作業領域の初期化
+                    await ClearAsync();           // 作業領域の初期化
                 }
 
+            }
+        }
+
+        public async Task ExecAsync(String msg)
+        {   // 左側余白情報を削除
+            await SetbufAsync(msg);                 // 入力内容の作業領域設定
+
+            if (!_empty)
+            {   // バッファーに実装有り
+                _wbuf = _wbuf.TrimStart(_trim);       // 左側余白情報を削除
+
+                if (_wbuf.Length == 0 || _wbuf == null)
+                {   // バッファー情報無し
+                    await ClearAsync();           // 作業領域の初期化
+                }
+
+            }
+        }
+
+        private async Task SetbufAsync(String _strbuf)
+        {   // [_wbuf]情報設定
+            _wbuf = _strbuf;
+            if (_wbuf == null)
+            {   // 設定情報は無し？
+                _empty = true;
+            }
+            else
+            {
+                _empty = false;
             }
         }
         #endregion
