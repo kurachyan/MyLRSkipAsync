@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LRSkipAsync
 {
-    class CS_LRskipAsync
+    public class CS_LRskipAsync
     {
         #region 共有領域
         private String _wbuf;
