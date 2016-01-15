@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CS_LRskipAsync.cs" />
     <Compile Include="CS_LskipAsync.cs" />
     <Compile Include="CS_RskipAsync.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LRSkipAsync
 {
-    public class CS_RskipAsync
+    class CS_LRskipAsync
     {
         #region 共有領域
         private String _wbuf;
@@ -34,7 +34,7 @@ namespace LRSkipAsync
         #endregion
 
         #region コンストラクタ
-        public CS_RskipAsync()
+        public CS_LRskipAsync()
         {   // コンストラクタ
             _wbuf = null;       // 設定情報無し
             _empty = true;
@@ -48,12 +48,11 @@ namespace LRSkipAsync
             _empty = true;
         }
 
-        // '14.01.07 : 評価対象に"￥ｒ"追加
         public async Task ExecAsync()
-        {   // 右側余白情報を削除
+        {   // 両側余白情報を削除（固定区切り）
             if (!_empty)
             {   // バッファーに実装有り
-                _wbuf = _wbuf.TrimEnd(_trim);       // 右側余白情報を削除
+                _wbuf = _wbuf.Trim(_trim);          // 両側余白情報を削除
 
                 if (_wbuf.Length == 0 || _wbuf == null)
                 {   // バッファー情報無し
@@ -66,7 +65,7 @@ namespace LRSkipAsync
         {   // 両側余白情報を削除（指定区切り）
             if (!_empty)
             {   // バッファーに実装有り
-                _wbuf = _wbuf.TrimEnd(__trim);          // 両側余白情報を削除
+                _wbuf = _wbuf.Trim(__trim);          // 両側余白情報を削除
 
                 if (_wbuf.Length == 0 || _wbuf == null)
                 {   // バッファー情報無し
@@ -75,14 +74,13 @@ namespace LRSkipAsync
             }
         }
 
-
         public async Task ExecAsync(String msg)
-        {   // 右側余白情報を削除
+        {   // 両側余白情報を削除（固定区切り）
             await SetbufAsync(msg);                 // 入力内容の作業領域設定
 
             if (!_empty)
             {   // バッファーに実装有り
-                _wbuf = _wbuf.TrimEnd(_trim);       // 右側余白情報を削除
+                _wbuf = _wbuf.Trim(_trim);          // 両側余白情報を削除
 
                 if (_wbuf.Length == 0 || _wbuf == null)
                 {   // バッファー情報無し
@@ -97,7 +95,7 @@ namespace LRSkipAsync
 
             if (!_empty)
             {   // バッファーに実装有り
-                _wbuf = _wbuf.TrimEnd(__trim);          // 両側余白情報を削除
+                _wbuf = _wbuf.Trim(__trim);          // 両側余白情報を削除
 
                 if (_wbuf.Length == 0 || _wbuf == null)
                 {   // バッファー情報無し
@@ -119,5 +117,6 @@ namespace LRSkipAsync
             }
         }
         #endregion
+
     }
 }
